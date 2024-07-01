@@ -5,6 +5,7 @@ Chilling Chat App is an application, in which you can contact with your friend a
 ## Features
 - Login and register
 - Realtime chat
+- Can also sent, unsent, forward,...
 - The app can send notifications to real Android device and also apply another Android Service (Mobile) (-Backlog-)
 - The application can send file, pic, and emotion,... (-Backlog-)
 - The app can have the room for group chat (-Backlog-)
