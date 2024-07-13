@@ -13,7 +13,9 @@ import com.example.chillingchatapp.R
 // Set of Material typography styles to start with
 data class fontFamily(
     val carosFont:FontFamily,
-    val alataFont:FontFamily
+    val alataFont:FontFamily,
+    val abeezeeFont:FontFamily,
+    val archivoFont:FontFamily
 )
 val CustomFont = fontFamily(
     carosFont = FontFamily(
@@ -21,6 +23,12 @@ val CustomFont = fontFamily(
     ),
     alataFont = FontFamily(
         Font(R.font.alata)
+    ),
+    abeezeeFont = FontFamily(
+        Font(R.font.abeezee)
+    ),
+    archivoFont = FontFamily(
+        Font(R.font.archivo)
     )
 )
 val Typography = Typography(
@@ -61,10 +69,10 @@ data class CustomTypo(
 
 val CustomTypography = CustomTypo(
     textInTitle = TextStyle(
-        fontFamily = FontFamily.SansSerif,
-        fontWeight = FontWeight.Bold,
-        fontSize = 18.sp,
-        lineHeight = 18.sp
+        fontFamily = CustomFont.archivoFont,
+        fontWeight = FontWeight.W900,
+        fontSize = 20.sp,
+        lineHeight = 24.sp
     ),
     textInContent = TextStyle(
         fontFamily = CustomFont.alataFont,

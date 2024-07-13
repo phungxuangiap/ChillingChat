@@ -12,6 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.chillingchatapp.Screens.ExtranceScreen
+import com.example.chillingchatapp.Screens.LoginScreen
+import com.example.chillingchatapp.Screens.RegisterScreen
 import com.example.chillingchatapp.ui.theme.ChillingChatAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -20,6 +22,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ChillingChatAppTheme {
+//                LoginScreen()
+//                RegisterScreen()
                 ExtranceScreen("Connect friends easily & quickly")
             }
         }

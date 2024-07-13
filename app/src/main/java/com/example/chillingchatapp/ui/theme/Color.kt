@@ -18,6 +18,7 @@ val TitleColorBlack = Color(0xFF000E08)
 val TitleColorWhite = Color.White
 val ContentColorWhite = Color(0xFFDBE8E6)
 val ContentColorGray = Color(0xFF797C7B)
+val DisableButtonColor = Color(0xFFF3F6F6)
 
 data class customColor(
     val primaryColor:Color,
@@ -26,7 +27,9 @@ data class customColor(
     val titleColorBlack:Color,
     val titleColorWhite:Color,
     val contentColorWhite:Color,
-    val contentColorGray:Color
+    val contentColorGray:Color,
+    val tertiaryColor:Color,
+    val disableButtonColor:Color
 )
 
 val CustomColor = customColor(
@@ -36,6 +39,8 @@ val CustomColor = customColor(
     titleColorBlack = TitleColorBlack,
     titleColorWhite = TitleColorWhite,
     contentColorWhite = ContentColorWhite,
-    contentColorGray = ContentColorGray
+    contentColorGray = ContentColorGray,
+    tertiaryColor = TertiaryColor,
+    disableButtonColor = DisableButtonColor
 )
 
