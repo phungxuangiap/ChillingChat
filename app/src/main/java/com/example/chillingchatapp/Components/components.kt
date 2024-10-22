@@ -1,8 +1,6 @@
 package com.example.chillingchatapp.Components
 
-import android.graphics.drawable.shapes.Shape
 import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.VisibilityThreshold
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
@@ -12,6 +10,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,49 +22,35 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.shape.AbsoluteCutCornerShape
+import androidx.compose.foundation.overscroll
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.selection.TextSelectionColors
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.LocalTextStyle
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Shapes
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldColors
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.clipToBounds
-import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.scale
 import androidx.compose.ui.graphics.drawscope.translate
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.font.FontWeight.Companion.W200
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.chillingchatapp.R
-import com.example.chillingchatapp.ui.theme.ChillingChatAppTheme
 import com.example.chillingchatapp.ui.theme.LocalAppColor
 import com.example.chillingchatapp.ui.theme.LocalAppFont
 import com.example.chillingchatapp.ui.theme.LocalAppTypography
@@ -145,9 +130,9 @@ fun SocialComponent(isDarkMode: Boolean) {
     ) {
         CircleIcon(R.drawable.facebook_icon, isDarkMode)
         CircleIcon(R.drawable.google_icon, isDarkMode)
-        if (isDarkMode) {
-            CircleIcon(R.drawable.apple_icon_light, isDarkMode)
-        } else CircleIcon(R.drawable.apple_icon, isDarkMode)
+//        if (isDarkMode) {
+//            CircleIcon(R.drawable.apple_icon_light, isDarkMode)
+//        } else CircleIcon(R.drawable.apple_icon, isDarkMode)
     }
 }
 
@@ -160,7 +145,7 @@ fun CircleIcon(icon: Int, isDarkMode: Boolean) {
             .border(
                 BorderStroke(
                     1.dp,
-                    if (isDarkMode) LocalAppColor.current.titleColorWhite else LocalAppColor.current.titleColorBlack
+                    if (isDarkMode) LocalAppColor.current.primaryColor else LocalAppColor.current.titleColorWhite
                 ), CircleShape
             ), contentAlignment = Alignment.Center
     ) {
@@ -205,7 +190,7 @@ fun CustomButton(content: String, isLightMode: Boolean, isDisable: Boolean = fal
             LocalAppColor.current.contentColorGray
         ), shape = RoundedCornerShape(12.dp), enabled = !isDisable
     ) {
-        Text(content)
+        Text(content, color = LocalAppColor.current.titleColorBlack)
     }
 }
 
@@ -226,7 +211,7 @@ fun TitleAndLinkInlineComponent(title: String, linkContent: String, onLinkClick:
 
 @Composable
 fun AnimationExtranceBackgroundComponent() {
-    val primaryColor = LocalAppColor.current.primaryColor
+    val primaryColor = LocalAppColor.current.primaryTextColor
     val infiniteTransition = rememberInfiniteTransition()
     val positionXTransitionE1 by infiniteTransition.animateFloat(
         initialValue = -500f, targetValue = 200f, animationSpec = infiniteRepeatable(
@@ -313,40 +298,9 @@ fun PreviousButtonElement(onClick: () -> Unit = {}) {
 }
 
 @Composable
-fun BigBoldTitleComponent(content: String, contentWithUnderline: String, isFirst: Boolean = true) {
+fun BigBoldTitleComponent(content: String) {
     val primaryColor = LocalAppColor.current.primaryColor
-    Row {
-        if (isFirst) {
-
-            Text(
-                contentWithUnderline,
-                modifier = Modifier.drawBehind {
-                    drawRect(primaryColor, Offset(y = 40f, x = 0f))
-                },
-                style = LocalAppTypography.current.textInTitle,
-                color = LocalAppColor.current.titleColorBlack
-            )
-            Text(
-                content,
-                style = LocalAppTypography.current.textInTitle,
-                color = LocalAppColor.current.titleColorBlack
-            )
-        } else {
-            Text(
-                content,
-                style = LocalAppTypography.current.textInTitle,
-                color = LocalAppColor.current.titleColorBlack
-            )
-            Text(
-                contentWithUnderline,
-                modifier = Modifier.drawBehind {
-                    drawRect(primaryColor, Offset(y = 40f, x = 0f))
-                },
-                style = LocalAppTypography.current.textInTitle,
-                color = LocalAppColor.current.titleColorBlack
-            )
-        }
-    }
+    Text(content, style = LocalAppTypography.current.textInTitle, color = primaryColor)
 }
 
 @Composable
@@ -361,11 +315,18 @@ fun ContentLoginRegisterComponent(content: String) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NormalTextField(description: String, isInvalid: Boolean) {
-    val grayColor = LocalAppColor.current.contentColorGray
-    var content by rememberSaveable {
-        mutableStateOf("")
+fun NormalTextField(
+    description: String,
+    isInvalid: Boolean,
+    content: String = "",
+    changeContent: (String) -> Unit = {},
+    type: String = ""
+) {
+    val password = remember { mutableStateOf("") }
+    val changePassword = fun(newValue: String) {
+        password.value = ("*").repeat(newValue.length)
     }
+
     Column(modifier = Modifier.fillMaxWidth()) {
         Text(
             description,
@@ -374,16 +335,17 @@ fun NormalTextField(description: String, isInvalid: Boolean) {
             modifier = Modifier.padding(bottom = 24.dp)
         )
         BasicTextField(
-            content,
+            if (type == "password") password.value else content,
             onValueChange = { it ->
-                content = it
-
+                changeContent(it)
+                changePassword(it)
             },
-            textStyle = LocalAppTypography.current.textInTyping,
+            textStyle = LocalAppTypography.current.textInTyping.copy(color = LocalAppColor.current.primaryTextColor),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 12.dp)
-        )
+                .padding(bottom = 12.dp),
+
+            )
         Box(
             modifier = Modifier
                 .height(2.dp)
@@ -413,6 +375,55 @@ fun LinkingText(content: String, onClick: () -> Unit = {}) {
         style = LocalAppTypography.current.textInDescription,
         color = LocalAppColor.current.primaryColor,
         modifier = Modifier.clickable { onClick() }
+    )
+}
+
+@Composable
+fun ListNotification(modifier: Modifier = Modifier) {
+    val notification = remember { mutableStateOf("You have 3 unseen messages") }
+    Text(
+        notification.value,
+        style = LocalAppTypography.current.textInContent.copy(
+            color = LocalAppColor.current.contentColorWhite,
+            fontSize = 16.sp,
+            fontWeight = W200
+        ),
+        modifier = modifier
+    )
+}
+
+@Composable
+fun ListActiveAccount() {
+    val listActiveAccount = listOf(1, 2, 3, 4, 5, 6, 7, 8)
+    val avata = "https://i.pinimg.com/736x/a6/61/f4/a661f414ac9a447b953338b2c953bb38.jpg"
+    val name = "Alex Gi"
+    Row() {
+        listActiveAccount.forEach({ it ->
+            AccountComponent(avata, name)
+        })
+    }
+}
+
+@Composable
+fun AccountComponent(avata: String, name: String) {
+    Column {
+        Box(
+            modifier = Modifier
+                .size(74.dp)
+                .clip(RoundedCornerShape(50))
+                .border(2.dp, LocalAppColor.current.primaryColor, CircleShape),
+            contentAlignment = Alignment.Center
+        ) {
+        }
+    }
+}
+
+@Preview
+@Composable
+fun PreviewAccountComponent() {
+    AccountComponent(
+        "https://i.pinimg.com/736x/a6/61/f4/a661f414ac9a447b953338b2c953bb38.jpg",
+        "Alex Gi"
     )
 }
 

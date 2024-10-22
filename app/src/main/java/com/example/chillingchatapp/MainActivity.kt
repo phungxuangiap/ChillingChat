@@ -24,7 +24,8 @@ class MainActivity : ComponentActivity() {
             ChillingChatAppTheme {
 //                LoginScreen()
 //                RegisterScreen()
-                ExtranceScreen("Connect friends easily & quickly")
+//                ExtranceScreen("Connect friends easily & quickly")
+                RegisterScreen()
             }
         }
     }

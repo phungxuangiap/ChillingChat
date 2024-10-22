@@ -1,13 +1,8 @@
 package com.example.chillingchatapp.ui.theme
 
-import android.app.Activity
-import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -16,7 +11,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Blue
 import androidx.compose.ui.graphics.Color.Companion.Gray
 import androidx.compose.ui.graphics.Color.Companion.LightGray
-import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
@@ -43,6 +37,7 @@ private val LightColorScheme = lightColorScheme(
 val LocalAppTypography = staticCompositionLocalOf { CustomTypo() }
 val LocalAppFont = staticCompositionLocalOf { CustomFont }
 val LocalAppColor = staticCompositionLocalOf { CustomColor }
+val LocalAppPadding = staticCompositionLocalOf { CustomPadding }
 
 @Composable
 fun ChillingChatAppTheme(
@@ -62,7 +57,8 @@ fun ChillingChatAppTheme(
     CompositionLocalProvider(
         LocalAppTypography provides CustomTypography,
         LocalAppFont provides CustomFont,
-        LocalAppColor provides CustomColor
+        LocalAppColor provides CustomColor,
+        LocalAppPadding provides CustomPadding,
     ) {
         MaterialTheme(
             colorScheme = colorScheme,

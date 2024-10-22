@@ -15,7 +15,10 @@ data class fontFamily(
     val carosFont:FontFamily,
     val alataFont:FontFamily,
     val abeezeeFont:FontFamily,
-    val archivoFont:FontFamily
+    val archivoFont:FontFamily,
+    val tintFontRegular: FontFamily,
+    val tintFontBold: FontFamily,
+    val tintFontThin: FontFamily,
 )
 val CustomFont = fontFamily(
     carosFont = FontFamily(
@@ -29,6 +32,15 @@ val CustomFont = fontFamily(
     ),
     archivoFont = FontFamily(
         Font(R.font.archivo)
+    ),
+    tintFontRegular = FontFamily(
+        Font(R.font.inter_regular)
+    ),
+    tintFontBold = FontFamily(
+        Font(R.font.inter_bold)
+    ),
+    tintFontThin = FontFamily(
+        Font(R.font.inter_thin)
     )
 )
 val Typography = Typography(
@@ -69,39 +81,39 @@ data class CustomTypo(
 
 val CustomTypography = CustomTypo(
     textInTitle = TextStyle(
-        fontFamily = CustomFont.archivoFont,
-        fontWeight = FontWeight.W900,
-        fontSize = 20.sp,
-        lineHeight = 24.sp
+        fontFamily = CustomFont.tintFontBold,
+        fontWeight = FontWeight.W100,
+        fontSize = 32.sp,
+        lineHeight = 32.sp
     ),
     textInContent = TextStyle(
-        fontFamily = CustomFont.alataFont,
+        fontFamily = CustomFont.tintFontRegular,
         fontWeight = FontWeight.Light,
         fontSize = 14.sp,
         lineHeight = 20.sp,
         letterSpacing = 0.1.sp
     ),
     textInTyping = TextStyle(
-        fontFamily = FontFamily.SansSerif,
+        fontFamily = CustomFont.tintFontRegular,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
         lineHeight = 16.sp,
     ),
     textInName = TextStyle(
-        fontFamily = CustomFont.carosFont,
+        fontFamily = CustomFont.tintFontRegular,
         fontWeight = FontWeight.Medium,
         fontSize = 20.sp,
         lineHeight = 20.sp,
     ),
     textInMessage = TextStyle(
-        fontFamily = FontFamily.SansSerif,
+        fontFamily = CustomFont.tintFontRegular,
         fontWeight = FontWeight.Normal,
         fontSize = 12.sp,
         lineHeight = 12.sp,
         letterSpacing = 0.1.sp
     ),
     textInDescription = TextStyle(
-        fontFamily = FontFamily.SansSerif,
+        fontFamily = CustomFont.tintFontRegular,
         fontWeight = FontWeight.Bold,
         fontSize = 14.sp,
         lineHeight = 14.sp,

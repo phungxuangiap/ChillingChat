@@ -50,12 +50,11 @@ import com.example.chillingchatapp.ui.theme.LocalAppTypography
 
 @Composable
 fun ExtranceScreen(slogan: String) {
-
     Box(
         modifier = Modifier
-            .background(LocalAppColor.current.backgroundColorDark)
             .fillMaxSize()
     ) {
+        Image(painterResource(R.drawable.background), contentDescription = "", modifier = Modifier.fillMaxSize())
         AnimationExtranceBackgroundComponent()
         Column(
             modifier = Modifier
