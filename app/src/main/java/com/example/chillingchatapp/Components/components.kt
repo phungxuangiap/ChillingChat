@@ -10,7 +10,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.scrollable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,10 +19,14 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.overscroll
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -47,12 +51,13 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.font.FontWeight.Companion.W200
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.example.chillingchatapp.R
 import com.example.chillingchatapp.ui.theme.LocalAppColor
 import com.example.chillingchatapp.ui.theme.LocalAppFont
+import com.example.chillingchatapp.ui.theme.LocalAppPadding
 import com.example.chillingchatapp.ui.theme.LocalAppTypography
 
 
@@ -388,7 +393,10 @@ fun ListNotification(modifier: Modifier = Modifier) {
             fontSize = 16.sp,
             fontWeight = W200
         ),
-        modifier = modifier
+        modifier = modifier.padding(
+            start = LocalAppPadding.current.appPaddingAround.dp,
+            end = LocalAppPadding.current.appPaddingAround.dp
+        )
     )
 }
 
@@ -397,16 +405,27 @@ fun ListActiveAccount() {
     val listActiveAccount = listOf(1, 2, 3, 4, 5, 6, 7, 8)
     val avata = "https://i.pinimg.com/736x/a6/61/f4/a661f414ac9a447b953338b2c953bb38.jpg"
     val name = "Alex Gi"
-    Row() {
-        listActiveAccount.forEach({ it ->
+    Row(
+        modifier = Modifier
+            .horizontalScroll(rememberScrollState())
+            .padding(top = LocalAppPadding.current.appPaddingAround.dp)
+    ) {
+        listActiveAccount.forEach { e ->
             AccountComponent(avata, name)
-        })
+
+        }
     }
 }
 
 @Composable
 fun AccountComponent(avata: String, name: String) {
-    Column {
+    Column(
+        modifier = Modifier.padding(
+            start = LocalAppPadding.current.appPaddingAround.dp,
+            end = (LocalAppPadding.current.appPaddingAround - 12).dp
+        ),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Box(
             modifier = Modifier
                 .size(74.dp)
@@ -414,17 +433,96 @@ fun AccountComponent(avata: String, name: String) {
                 .border(2.dp, LocalAppColor.current.primaryColor, CircleShape),
             contentAlignment = Alignment.Center
         ) {
+            AsyncImage(
+                model = avata, contentDescription = "", modifier = Modifier
+                    .size(60.dp)
+                    .clip(
+                        RoundedCornerShape(50)
+                    )
+            )
+
         }
+        Text(
+            name,
+            color = LocalAppColor.current.titleColorWhite,
+            style = LocalAppTypography.current.textBold14
+        )
     }
 }
 
-@Preview
 @Composable
-fun PreviewAccountComponent() {
-    AccountComponent(
-        "https://i.pinimg.com/736x/a6/61/f4/a661f414ac9a447b953338b2c953bb38.jpg",
-        "Alex Gi"
-    )
+fun ListChat() {
+    val listChat = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18)
+    Box(
+        modifier = Modifier
+            .padding(top = LocalAppPadding.current.appPaddingAround.dp)
+            .clip(RoundedCornerShape(50.dp))
+    ) {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 50.dp)
+                .background(LocalAppColor.current.contentColorWhite)
+                .heightIn(0.dp, 1200.dp)
+        ) {
+            itemsIndexed(listChat) { key, item ->
+                ChatComponent()
+            }
+        }
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(LocalAppColor.current.contentColorWhite)
+
+                .padding(top = 24.dp, bottom = 24.dp)
+        ) {
+            Box(
+                modifier = Modifier
+                    .width(120.dp)
+                    .height(4.dp)
+                    .background(LocalAppColor.current.contentColorGray)
+            )
+        }
+    }
+
+}
+
+@Composable
+fun ChatComponent() {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(
+                start = LocalAppPadding.current.appPaddingAround.dp,
+                end = LocalAppPadding.current.appPaddingAround.dp,
+                bottom = LocalAppPadding.current.appPaddingAround.dp
+            )
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            AsyncImage(
+                model = "https://i.pinimg.com/736x/a6/61/f4/a661f414ac9a447b953338b2c953bb38.jpg",
+                contentDescription = "",
+                modifier = Modifier
+                    .width(64.dp)
+                    .height(64.dp)
+                    .clip(
+                        RoundedCornerShape(50)
+                    )
+            )
+            Column {
+                Text("Alex Gi")
+                Text("Your cum's so big")
+            }
+        }
+
+        Column {
+            Text("22:33 PM")
+            Text("seen")
+        }
+    }
 }
 
 

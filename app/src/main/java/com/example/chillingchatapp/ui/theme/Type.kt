@@ -76,7 +76,8 @@ data class CustomTypo(
     val textInTyping: TextStyle = TextStyle(),
     val textInName: TextStyle = TextStyle(),
     val textInMessage: TextStyle = TextStyle(),
-    val textInDescription: TextStyle = TextStyle()
+    val textInDescription: TextStyle = TextStyle(),
+    val textBold14:TextStyle = TextStyle()
 )
 
 val CustomTypography = CustomTypo(
@@ -119,5 +120,12 @@ val CustomTypography = CustomTypo(
         lineHeight = 14.sp,
         letterSpacing = 1.sp
     ),
+    textBold14 = TextStyle(
+        fontFamily = CustomFont.tintFontBold,
+        fontWeight = FontWeight.Thin,
+        fontSize = 14.sp,
+        lineHeight = 14.sp,
+        letterSpacing = 1.sp
+    )
 )
 

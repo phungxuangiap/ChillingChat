@@ -2,7 +2,7 @@ package com.example.chillingchatapp.ui.theme
 
 
 val appPaddingAround = 24
-val appPaddingTop = 38
+val appPaddingTop = 76
 val appPaddingBottom = 38
 
 data class customPadding(

@@ -11,6 +11,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.chillingchatapp.Components.ListActiveAccount
+import com.example.chillingchatapp.Components.ListChat
 import com.example.chillingchatapp.Components.ListNotification
 import com.example.chillingchatapp.R
 import com.example.chillingchatapp.ui.theme.LocalAppPadding
@@ -26,13 +27,12 @@ fun ChatScreen() {
         Column(
             modifier = Modifier.padding(
                 top = LocalAppPadding.current.appPaddingTop.dp,
-                start = LocalAppPadding.current.appPaddingAround.dp,
-                end = LocalAppPadding.current.appPaddingAround.dp,
                 bottom = LocalAppPadding.current.appPaddingBottom.dp
             )
         ) {
             ListNotification()
             ListActiveAccount()
+            ListChat()
         }
     }
 }
