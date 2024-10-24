@@ -33,6 +33,7 @@ fun ChatScreen() {
             ListNotification()
             ListActiveAccount()
             ListChat()
+            Text("Giop Test")
         }
     }
 }
@@ -40,5 +41,4 @@ fun ChatScreen() {
 @Preview
 @Composable
 fun PreviewChatScreen() {
-    ChatScreen()
 }
